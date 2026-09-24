@@ -12,7 +12,11 @@ USER_AGENTS = [
 
 import uuid
 import time
-from backend.app.config import settings
+
+try:
+    from app.config import settings
+except ImportError:
+    from backend.app.config import settings
 
 
 def get_random_ua() -> str:

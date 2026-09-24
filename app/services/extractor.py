@@ -4,9 +4,14 @@ import urllib.parse
 from typing import Dict, Any, List, Optional
 import httpx
 from pydantic import BaseModel
-from backend.app.config import settings
-from backend.app.services.headers import get_bilibili_api_headers
-from backend.app.core.exceptions import InvalidUrlException, BilibiliApiException, StreamNotFoundException
+try:
+    from app.config import settings
+    from app.services.headers import get_bilibili_api_headers
+    from app.core.exceptions import InvalidUrlException, BilibiliApiException, StreamNotFoundException
+except ImportError:
+    from backend.app.config import settings
+    from backend.app.services.headers import get_bilibili_api_headers
+    from backend.app.core.exceptions import InvalidUrlException, BilibiliApiException, StreamNotFoundException
 
 
 class VideoStreamOption(BaseModel):

@@ -1,11 +1,23 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-import uvicorn
+import sys
+from pathlib import Path
 
-from backend.app.config import settings
-from backend.app.api.v1.endpoints import router as api_v1_router
-from backend.app.core.exceptions import AppBaseException
+# Ensure root and parent directory are on sys.path
+_current_dir = Path(__file__).resolve().parent
+_root_dir = _current_dir.parent
+if str(_root_dir) not in sys.path:
+    sys.path.insert(0, str(_root_dir))
+
+try:
+    from app.config import settings
+    from app.api.v1.endpoints import router as api_v1_router
+    from app.core.exceptions import AppBaseException
+except ImportError:
+    from backend.app.config import settings
+    from backend.app.api.v1.endpoints import router as api_v1_router
+    from backend.app.core.exceptions import AppBaseException
 
 
 app = FastAPI(

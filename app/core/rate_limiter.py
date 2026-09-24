@@ -1,8 +1,12 @@
 import time
 from collections import defaultdict
 from fastapi import Request
-from backend.app.config import settings
-from backend.app.core.exceptions import RateLimitExceededException
+try:
+    from app.config import settings
+    from app.core.exceptions import RateLimitExceededException
+except ImportError:
+    from backend.app.config import settings
+    from backend.app.core.exceptions import RateLimitExceededException
 
 
 class InMemoryRateLimiter:

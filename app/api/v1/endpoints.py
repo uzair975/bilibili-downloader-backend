@@ -4,9 +4,14 @@ from pydantic import BaseModel, Field
 import httpx
 from urllib.parse import unquote
 
-from backend.app.core.rate_limiter import check_rate_limit
-from backend.app.services.extractor import BilibiliExtractor, ResolutionResult
-from backend.app.services.headers import get_stream_download_headers, get_bilibili_api_headers
+try:
+    from app.core.rate_limiter import check_rate_limit
+    from app.services.extractor import BilibiliExtractor, ResolutionResult
+    from app.services.headers import get_stream_download_headers, get_bilibili_api_headers
+except ImportError:
+    from backend.app.core.rate_limiter import check_rate_limit
+    from backend.app.services.extractor import BilibiliExtractor, ResolutionResult
+    from backend.app.services.headers import get_stream_download_headers, get_bilibili_api_headers
 
 
 router = APIRouter()
